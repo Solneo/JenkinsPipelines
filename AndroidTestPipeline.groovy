@@ -1,4 +1,4 @@
-node("android") {
+node("master") {
     stage("Checkout") {
         println("Checkout on dev")
         deleteDir()
