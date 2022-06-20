@@ -10,9 +10,9 @@ node {
 
     stage("Build") {
         if (params.BUILD_CONFIG == 'release') {
-            bat './gradlew clean assembleRelease'
+            sh './gradlew clean assembleRelease'
         } else {
-            bat './gradlew clean assembleDebug'
+            sh './gradlew clean assembleDebug'
         }
     }
 }
