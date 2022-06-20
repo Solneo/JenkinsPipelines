@@ -8,9 +8,9 @@ node {
 
     stage("Build") {
         if (params.BUILD_CONFIG == 'release') {
-            sh './gradlew clean assembleRelease'
+            sh './AndroidTest/gradlew clean assembleRelease'
         } else {
-            sh './gradlew clean assembleDebug'
+            sh './AndroidTest/gradlew clean assembleDebug'
         }
     }
 }
