@@ -1,5 +1,5 @@
 node {
-    withDockerContainer(args: '-u root --privileged', image: "cimg/android:2022.06") {
+    withDockerContainer(args: '-u root --privileged', image: "androidsdk/android-30") {
         stage("Checkout") {
             println("Checkout on dev")
             git url: "https://github.com/Solneo/SpotyTimer.git",
