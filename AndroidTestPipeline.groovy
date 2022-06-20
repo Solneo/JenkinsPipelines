@@ -7,11 +7,12 @@ node {
     }
 
     stage("Build") {
-        cd '${JENKINS_HOME}/AndroidTest'
-        if (params.BUILD_CONFIG == 'release') {
-            sh './gradlew clean assembleRelease'
-        } else {
-            sh './gradlew clean assembleDebug'
+        dir("${env.WORKSPACE}/AndroidTest"){
+            if (params.BUILD_CONFIG == 'release') {
+                sh './gradlew clean assembleRelease'
+            } else {
+                sh './gradlew clean assembleDebug'
+            }
         }
     }
 }
