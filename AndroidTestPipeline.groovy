@@ -8,6 +8,7 @@ node {
         }
 
         stage("Build") {
+            sh 'chmod +x gradlew'
             if (params.BUILD_CONFIG == 'release') {
                 sh './gradlew clean assembleRelease'
             } else {
