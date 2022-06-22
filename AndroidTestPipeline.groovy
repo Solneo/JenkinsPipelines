@@ -1,5 +1,5 @@
 node {
-    withDockerContainer(args: '-u root --privileged', image: "70c9bc238f28") {
+    withDockerContainer(args: '-u root --privileged', image: "eb7a3488f1c0") {
         stage("Checkout") {
             println("Checkout on dev")
             git url: "https://github.com/Solneo/testAppForCi.git",
