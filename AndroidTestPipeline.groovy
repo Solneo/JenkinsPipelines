@@ -1,19 +1,39 @@
+def stageIf(String name, Closure body) {
+    if (params.firstStage <= name && params.lastStage >= name) {
+        stage(name, body)
+    } else {
+        stage(name) {
+            echo "Stage skipped: $name"
+        }
+    }
+}
+
 node {
-    withDockerContainer(args: '-u root --privileged', image: "f8206c1e89c0") {
-        stage("Checkout") {
-            println("Checkout on dev")
-            git url: "https://github.com/Solneo/testAppForCi.git",
-                    branch: 'master'
+    properties([
+            parameters([
+                    choiceParam(
+                            name: 'firstStage',
+                            choices: '1.Build\n' +
+                                    '2.Docker\n' +
+                                    '3.Deploy',
+                            description: 'First stage to start',
+                            defaultValue: '1.Build',
+                    ),
+                    choiceParam(
+                            name: 'lastStage',
+                            choices: '3.Deploy\n' +
+                                    '2.Docker\n' +
+                                    '1.Build',
+                            description: 'Last stage to start',
+                            defaultValue: '3.Deploy',
+                    ),
+            ])
+    ])
 
-        }
-
-        stage("Build") {
-            sh 'chmod +x gradlew'
-            if (params.BUILD_CONFIG == 'release') {
-                sh './gradlew clean assembleRelease -d'
-            } else {
-                sh './gradlew clean assembleDebug -d'
-            }
-        }
+    stageIf('1.Build') {
+        // ...
+    }
+    stageIf('3.Deploy') {
+        // ...
     }
 }
